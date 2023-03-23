@@ -18,7 +18,15 @@ async function display(){
 
         console.log(`(id=${id}) Un séisme à ${place}, le ${dateStr}, de magnitude ${mag}`)
 
+        
     });
+
+    let lastEarthquake = seismes[0]
+    let place = lastEarthquake.properties.place
+    let mag = lastEarthquake.properties.mag
+    let dateStr = dateToString(new Date(lastEarthquake.properties.time))
+
+    affichage.innerHTML = `Un séisme à ${place}, le ${dateStr}, de magnitude ${mag}`
 }
 
 function dateToString(date) {

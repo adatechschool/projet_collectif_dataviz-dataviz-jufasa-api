@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <p id="Affichage"></p>
+
+    <form action="#">
+        <label for="script">Séisme</label>
+        <select name="Earthquake" id="time">
+          <option value="hour">Hour</option>
+          <option value="day">Day</option>
+          <option value="month">Month</option>
+        </select>
+        <input type="submit" value="Submit"/>
+  </form>
+  
+    <div id="informationOfLastEarthquake">
+        
+        <div id="box">
+            <p id="affichage"></p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
