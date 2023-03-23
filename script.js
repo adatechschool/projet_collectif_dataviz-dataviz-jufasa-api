@@ -39,3 +39,46 @@ function dateToString(date) {
     return `${day}/${month}/${year} à ${hour}h${minute}`
 }
 display()
+
+async function getDataEarthquakes(freq="hour", type="all") { // par défaut retourne tous les séismes de l'heure précédente
+    let option_freq=["hour", "day", "week", "month"];
+    let option_type=["significant", "1.5", "2.5", "4.5", "all"];
+    if (!option_freq.includes(freq) || !option_type.includes(type)) {
+        console.log("La fonction getData() n'a pas été appelée avec les bons paramètres.")
+        return []
+    }
+
+    let url=`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${type}_${freq}.geojson`;
+    // console.log("url", url);
+    let data = await fetch(url);
+    let response = await data.json();
+    
+    let earthquakes = response.features
+    // console.log("earthquakes", earthquakes)
+    let dataEarthquakes = []; // je renverrai ce tableau d'objets qui auront les propriétés dont on a besoin
+    earthquakes.forEach(e => {
+        const dataEarthquake = { // on peut ajouter des propriétés en fonction de nos besoins
+            id: e.id,
+            mag: e.properties.mag,
+            place: e.properties.place,
+            date: new Date(e.properties.time),
+            coordinates: e.geometry.coordinates
+        }
+        dataEarthquakes.push(dataEarthquake);
+    })
+    // console.log("dans la fonction", dataEarthquakes)
+    return dataEarthquakes;
+}
+
+function getMagnitudes(dataEarthquakes) {
+    return dataEarthquakes.map(e => e.mag);
+}
+
+async function main() {
+    let dataArr = await getDataEarthquakes();
+    // console.log("infos seismes", dataArr);
+    let magnitudes = getMagnitudes(dataArr);
+    console.log("magnitudes", magnitudes);
+}
+
+main();
