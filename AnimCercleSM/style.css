@@ -10,30 +10,26 @@
 
   .circle {
     border-radius: 50%;
-    background-color: rgb(255, 234, 0);
+    /* background-color: aqua 0.5; */
+    border: 1px solid rgb(152, 16, 237);
     width: 150px;
     height: 150px;
     position: absolute;
     opacity: 0;
-    animation: scaleIn 4s infinite cubic-bezier(.36, .11, .89, .32);
-  }
-
-  .item {
-    z-index: 100;
-    padding: 5px;
-  }
-
-  .item img {
-    width: 150px;
+    animation: scaleIn 4s linear 0.75s infinite;
+    /* animation: scaleIn 4s infinite cubic-bezier(.36, .11, .89, .32); */
   }
 
   @keyframes scaleIn {
-    from {
-      transform: scale(.5, .5);
-      opacity: .5;
-    }
-    to {
-      transform: scale(2.5, 2.5);
+    0% {
+      transform: translate(-50%, -50%) scale(0); /* le scale : Rapidité du cercle */
       opacity: 0;
     }
-  }
+    50% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1); /* le scale : Diamètre des cercles */
+      opacity: 0;
+    }
+}
