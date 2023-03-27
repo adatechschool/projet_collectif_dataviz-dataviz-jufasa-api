@@ -40,7 +40,7 @@ function dateToString(date) {
 }
 display()
 
-async function getDataEarthquakes(freq="hour", type="all") { // par défaut retourne tous les séismes de l'heure précédente
+async function getDataEarthquakes(freq="hour", type="all") { // les valeurs ("freq et "type") sont définies par défaut pour retourner tous les séismes de l'heure précédente
     let option_freq=["hour", "day", "week", "month"];
     let option_type=["significant", "1.5", "2.5", "4.5", "all"];
     if (!option_freq.includes(freq) || !option_type.includes(type)) {
@@ -56,7 +56,8 @@ async function getDataEarthquakes(freq="hour", type="all") { // par défaut reto
     let earthquakes = response.features
     // console.log("earthquakes", earthquakes)
     let dataEarthquakes = []; // je renverrai ce tableau d'objets qui auront les propriétés dont on a besoin
-    earthquakes.forEach(e => {
+    for (let i=0; i<earthquakes.length; i++) {
+        let e = earthquakes[i];
         const dataEarthquake = { // on peut ajouter des propriétés en fonction de nos besoins
             id: e.id,
             mag: e.properties.mag,
@@ -65,7 +66,18 @@ async function getDataEarthquakes(freq="hour", type="all") { // par défaut reto
             coordinates: e.geometry.coordinates
         }
         dataEarthquakes.push(dataEarthquake);
-    })
+    }
+    //ALTERNATIVE AVEC FOR EACH
+    // earthquakes.forEach(e => {
+    //     const dataEarthquake = { // on peut ajouter des propriétés en fonction de nos besoins
+    //         id: e.id,
+    //         mag: e.properties.mag,
+    //         place: e.properties.place,
+    //         date: new Date(e.properties.time),
+    //         coordinates: e.geometry.coordinates
+    //     }
+    //     dataEarthquakes.push(dataEarthquake);
+    // })
     // console.log("dans la fonction", dataEarthquakes)
     return dataEarthquakes;
 }
