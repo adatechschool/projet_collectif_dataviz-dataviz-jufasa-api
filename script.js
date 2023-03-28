@@ -93,4 +93,37 @@ async function main() {
     console.log("magnitudes", magnitudes);
 }
 
-main();
+function getCoordinates(dataEarthquakes) {
+    return dataEarthquakes.map(e => e.coordinates);
+
+}
+
+async function mainCoordinates () {
+    let dataCoord = await getDataEarthquakes();
+    let coordinates = getCoordinates(dataCoord);
+    console.log("coordinates", coordinates)
+
+    let circle = L.circle([coordinates[0][1], coordinates[0][0]], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 5000
+    }).addTo(map);
+
+  
+
+}
+
+
+var map = L.map('map').setView([51.505, -0.09], 1);
+
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom : 8,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+
+
+// main() 
+mainCoordinates();
