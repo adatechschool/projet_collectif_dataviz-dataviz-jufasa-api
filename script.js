@@ -104,11 +104,29 @@ async function mainCoordinates () {
     console.log("coordinates", coordinates)
 
     let circle = L.circle([coordinates[0][1], coordinates[0][0]], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
+        // className: 'pulse',
+        color: 'blue',
+        fillColor: 'blue',
+        fillOpacity: 1,
+        radius: 2000
+    }).addTo(map);
+
+    let circle1 = L.circle([coordinates[0][1], coordinates[0][0]], {
+        className: 'pulse1',
+        color: 'blue',
+        // fillColor: '#f03',
+        fillOpacity: 0,
         radius: 5000
     }).addTo(map);
+
+    let circle2 = L.circle([coordinates[0][1], coordinates[0][0]], {
+        className: 'pulse2',
+        color: 'blue',
+        // fillColor: '#f03',
+        fillOpacity: 0,
+        radius: 10000
+    }).addTo(map);
+    
 
   
 

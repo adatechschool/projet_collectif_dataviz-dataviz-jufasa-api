@@ -27,3 +27,31 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 #map { height: 540px; }
+
+
+.pulse {
+    animation: pulsate 2s linear infinite;
+    opacity: 0.0;
+    animation-delay: 0s;
+}
+
+.pulse1 {
+    animation: pulsate 2s linear infinite;
+    opacity: 0.0;
+    animation-delay: 1s;
+}
+
+.pulse2 {
+    animation: pulsate 2s linear infinite;
+    opacity: 0.0;
+    animation-delay: 2.5s;
+}
+
+
+@keyframes pulsate {
+    100% {transform: opacity: 0.0;}
+    50% {opacity: 0.5;}
+    0% {transform: opacity: 1.0;}
+}
+
+}
