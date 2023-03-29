@@ -103,6 +103,12 @@ async function mainCoordinates () {
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
+    for (let i=0; i<coordinates.length; i++) {
+        
+     drawEarthquake(map, coordinates[i][0], coordinates[i][1]);
+
+    }
+
     drawEarthquake(map, coordinates[0][0], coordinates[0][1]);
 }
 
