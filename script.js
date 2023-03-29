@@ -103,35 +103,57 @@ async function mainCoordinates () {
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
-    let circle = L.circle([coordinates[0][1], coordinates[0][0]], {
+    // let circle = L.circle([coordinates[0][1], coordinates[0][0]], {
+    //     // className: 'pulse',
+    //     color: 'blue',
+    //     fillColor: 'blue',
+    //     fillOpacity: 1,
+    //     radius: 2000
+    // }).addTo(map);
+
+    // let circle1 = L.circle([coordinates[0][1], coordinates[0][0]], {
+    //     className: 'pulse1',
+    //     color: 'blue',
+    //     // fillColor: '#f03',
+    //     fillOpacity: 0,
+    //     radius: 5000
+    // }).addTo(map);
+
+    // let circle2 = L.circle([coordinates[0][1], coordinates[0][0]], {
+    //     className: 'pulse2',
+    //     color: 'blue',
+    //     // fillColor: '#f03',
+    //     fillOpacity: 0,
+    //     radius: 10000
+    // }).addTo(map);
+    drawEarthquake(map, coordinates[0][0], coordinates[0][1]);
+}
+
+function drawEarthquake(mapDisplayed, longitude, latitude) {
+    let circle = L.circle([latitude, longitude], {
         // className: 'pulse',
         color: 'blue',
         fillColor: 'blue',
         fillOpacity: 1,
         radius: 2000
-    }).addTo(map);
+    }).addTo(mapDisplayed);
 
-    let circle1 = L.circle([coordinates[0][1], coordinates[0][0]], {
+    let circle1 = L.circle([latitude, longitude], {
         className: 'pulse1',
         color: 'blue',
         // fillColor: '#f03',
         fillOpacity: 0,
         radius: 5000
-    }).addTo(map);
+    }).addTo(mapDisplayed);
 
-    let circle2 = L.circle([coordinates[0][1], coordinates[0][0]], {
+    let circle2 = L.circle([latitude, longitude], {
         className: 'pulse2',
         color: 'blue',
         // fillColor: '#f03',
         fillOpacity: 0,
         radius: 10000
-    }).addTo(map);
-    
-
-  
-
+    }).addTo(mapDisplayed);
 }
-
 
 var map = L.map('map').setView([51.505, -0.09], 1);
 
