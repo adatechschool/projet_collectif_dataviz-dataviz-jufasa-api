@@ -49,10 +49,8 @@ font-family: Arial, Helvetica, sans-serif;
 
 
 @keyframes pulsate {
-    100% {transform: opacity: 0.0;}
-    50% {opacity: 0.5;}
-    0% {transform: opacity: 1.0;}
-}
-
+    100% {opacity: 0.0;}
+    50% {opacity: 0.2;}
+    0% {opacity: 0.5;}
 }
 
