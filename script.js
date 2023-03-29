@@ -103,27 +103,27 @@ async function mainCoordinates () {
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
-    for (let i=0; i<coordinates.length; i++) {
+    for (let i=1; i<coordinates.length; i++) {
         
-     drawEarthquake(map, coordinates[i][0], coordinates[i][1]);
+        drawEarthquake(map, coordinates[i][0], coordinates[i][1], "blue");
 
     }
 
-    drawEarthquake(map, coordinates[0][0], coordinates[0][1]);
+    drawEarthquake(map, coordinates[0][0], coordinates[0][1], "red");
 }
 
-function drawEarthquake(mapDisplayed, longitude, latitude) {
+function drawEarthquake(mapDisplayed, longitude, latitude, color) {
     let circle = L.circle([latitude, longitude], {
         // className: 'pulse',
-        color: 'blue',
-        fillColor: 'blue',
+        color: color,
+        fillColor: color,
         fillOpacity: 1,
         radius: 2000
     }).addTo(mapDisplayed);
 
     let circle1 = L.circle([latitude, longitude], {
         className: 'pulse1',
-        color: 'blue',
+        color: color,
         // fillColor: '#f03',
         fillOpacity: 0,
         radius: 5000
@@ -131,18 +131,22 @@ function drawEarthquake(mapDisplayed, longitude, latitude) {
 
     let circle2 = L.circle([latitude, longitude], {
         className: 'pulse2',
-        color: 'blue',
+        color: color,
         // fillColor: '#f03',
         fillOpacity: 0,
         radius: 10000
     }).addTo(mapDisplayed);
 }
 
-var map = L.map('map').setView([51.505, -0.09], 1);
+
+
+
+var map = L.map('map').setView([51.505, -0.09], 2);
 
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom : 8,
+    minZoom : 2,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
