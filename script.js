@@ -1,4 +1,5 @@
 let affichage = document.getElementById("affichage");
+let freqSelection = document.getElementById("time");
 const urlBase = "https://earthquake.usgs.gov/fdsnws/event/1/"
 
 async function display(){
@@ -98,8 +99,8 @@ function getCoordinates(dataEarthquakes) {
 
 }
 
-async function mainCoordinates () {
-    let dataCoord = await getDataEarthquakes();
+async function mainCoordinates (freq="hour") {
+    let dataCoord = await getDataEarthquakes(freq);
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
@@ -154,3 +155,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // main() 
 mainCoordinates();
+
+freqSelection.addEventListener("click", function(e) {
+    // console.log(this.value);
+    mainCoordinates(this.value)
+})
