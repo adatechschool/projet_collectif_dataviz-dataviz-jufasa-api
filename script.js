@@ -1,5 +1,6 @@
 let affichage = document.getElementById("affichage");
 let freqSelection = document.getElementById("time");
+let changeFreq = document.getElementById("changeFreq")
 const urlBase = "https://earthquake.usgs.gov/fdsnws/event/1/"
 
 async function display(){
@@ -99,8 +100,8 @@ function getCoordinates(dataEarthquakes) {
 
 }
 
-async function mainCoordinates (freq="hour") {
-    let dataCoord = await getDataEarthquakes(freq);
+async function mainCoordinates (freq, type) {
+    let dataCoord = await getDataEarthquakes(freq, type);
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
@@ -156,7 +157,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // main() 
 mainCoordinates();
 
-freqSelection.addEventListener("click", function(e) {
-    // console.log(this.value);
-    mainCoordinates(this.value)
+changeFreq.addEventListener("click", function(e) {
+    // console.log(freqSelection.value);
+    if (freqSelection.value === "month") {
+        mainCoordinates(freqSelection.value, "significant")
+    } else {
+        mainCoordinates(freqSelection.value)
+    }
 })
