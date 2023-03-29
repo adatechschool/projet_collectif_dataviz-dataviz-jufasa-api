@@ -101,17 +101,19 @@ function getCoordinates(dataEarthquakes) {
 }
 
 async function mainCoordinates (freq, type) {
+    layerEarthquakes.clearLayers();
+
     let dataCoord = await getDataEarthquakes(freq, type);
     let coordinates = getCoordinates(dataCoord);
     console.log("coordinates", coordinates)
 
     for (let i=1; i<coordinates.length; i++) {
         
-        drawEarthquake(map, coordinates[i][0], coordinates[i][1], "blue");
+        drawEarthquake(layerEarthquakes, coordinates[i][0], coordinates[i][1], "blue");
 
     }
 
-    drawEarthquake(map, coordinates[0][0], coordinates[0][1], "red");
+    drawEarthquake(layerEarthquakes, coordinates[0][0], coordinates[0][1], "red");
 }
 
 function drawEarthquake(mapDisplayed, longitude, latitude, color) {
@@ -143,7 +145,7 @@ function drawEarthquake(mapDisplayed, longitude, latitude, color) {
 
 
 
-var map = L.map('map').setView([51.505, -0.09], 2);
+let map = L.map('map').setView([51.505, -0.09], 2);
 
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -152,7 +154,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-
+let layerEarthquakes = L.layerGroup().addTo(map)
 
 // main() 
 mainCoordinates();
