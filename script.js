@@ -1,6 +1,7 @@
 let affichage = document.getElementById("affichage");
+let number = document.getElementById("number");
 let freqSelection = document.getElementById("time");
-let changeFreq = document.getElementById("changeFreq")
+let changeFreq = document.getElementById("changeFreq");
 const urlBase = "https://earthquake.usgs.gov/fdsnws/event/1/"
 
 async function display(){
@@ -125,6 +126,8 @@ async function mainCoordinates (freq, type) {
     }
 
     drawEarthquake(layerEarthquakes, coordinates[0][0], coordinates[0][1], magnitudes[0], places[0], dates[0], "red", freq, type);
+    console.log(`Nombre de séismes affichés : ${dataCoord.length}`);
+    number.innerHTML = `Nombre de séismes affichés : ${dataCoord.length}`;
 }
 
 function drawEarthquake(mapDisplayed, longitude, latitude, magnitude, place, dateStr, color, freq="hour", type="all") {
