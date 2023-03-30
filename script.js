@@ -18,7 +18,7 @@ async function display(){
         let date = new Date(seisme.properties.time);
         let dateStr = dateToString(date);
 
-        console.log(`(id=${id}) Un séisme à ${place}, le ${dateStr}, de magnitude ${mag}`)
+        console.log(`(id=${id}) Un séisme à ${place}, ${dateStr}, de magnitude ${mag}`)
 
         
     });
@@ -28,17 +28,17 @@ async function display(){
     let mag = lastEarthquake.properties.mag
     let dateStr = dateToString(new Date(lastEarthquake.properties.time))
 
-    affichage.innerHTML = `Un séisme à ${place}, le ${dateStr}, de magnitude ${mag}`
+    affichage.innerHTML = `Dernier séisme à ${place}, ${dateStr}, de magnitude ${mag}`
 }
 
 function dateToString(date) {
-    let day = date.getDate();
-    let month = date.getMonth()+1;
-    let year = date.getFullYear();
-    let hour = date.getHours();
-    let minute = date.getMinutes();
+    let day = ""+date.getDate();
+    let month = ""+date.getMonth()+1;
+    let year = ""+date.getFullYear();
+    let hour = ""+date.getHours();
+    let minute = ""+date.getMinutes();
 
-    return `${day}/${month}/${year} à ${hour}h${minute}`
+    return `le ${day.padStart(2,"0")}/${month.padStart(2,"0")}/${year} à ${hour.padStart(2,"0")}h${minute.padStart(2,"0")}`
 }
 display()
 
@@ -100,23 +100,34 @@ function getCoordinates(dataEarthquakes) {
 
 }
 
+function getDatesString(dataEarthquakes) {
+    return dataEarthquakes.map(e => dateToString(e.date));
+}
+
+function getPlaces(dataEarthquakes) {
+    return dataEarthquakes.map(e => e.place);
+}
+
 async function mainCoordinates (freq, type) {
     layerEarthquakes.clearLayers();
 
     let dataCoord = await getDataEarthquakes(freq, type);
     let coordinates = getCoordinates(dataCoord);
+    let magnitudes = getMagnitudes(dataCoord);
+    let places = getPlaces(dataCoord);
+    let dates = getDatesString(dataCoord);
     console.log("coordinates", coordinates)
 
     for (let i=1; i<coordinates.length; i++) {
         
-        drawEarthquake(layerEarthquakes, coordinates[i][0], coordinates[i][1], "blue");
+        drawEarthquake(layerEarthquakes, coordinates[i][0], coordinates[i][1], magnitudes[i], places[i], dates[i], "blue", freq, type);
 
     }
 
-    drawEarthquake(layerEarthquakes, coordinates[0][0], coordinates[0][1], "red");
+    drawEarthquake(layerEarthquakes, coordinates[0][0], coordinates[0][1], magnitudes[0], places[0], dates[0], "red", freq, type);
 }
 
-function drawEarthquake(mapDisplayed, longitude, latitude, color) {
+function drawEarthquake(mapDisplayed, longitude, latitude, magnitude, place, dateStr, color, freq="hour", type="all") {
     let circle = L.circle([latitude, longitude], {
         // className: 'pulse',
         color: color,
@@ -140,6 +151,10 @@ function drawEarthquake(mapDisplayed, longitude, latitude, color) {
         fillOpacity: 0,
         radius: 10000
     }).addTo(mapDisplayed);
+    if (freq==="hour" || type==="significant") {
+        L.marker([latitude, longitude]).addTo(mapDisplayed)
+            .bindPopup(`${place} <br>Magnitude : ${magnitude} <br>${dateStr}`);
+    }
 }
 
 
